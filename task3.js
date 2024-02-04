@@ -7,13 +7,30 @@ const selectplayer = document.querySelector(".selectplayer"),
   playerso = document.querySelector(".turno"),
   winner = document.querySelector(".result"),
   wintext = document.querySelector(".win"),
-  replaybtn = document.querySelector(".replay");
+  replaybtn = document.querySelector(".replay"),
+  selectHuman=document.querySelector("#human"),
+  selectAi=document.querySelector("#AI"),
+  selectOpponentscreen=document.querySelector(".selectOpponent");
+  var opponent;
 var runBot = true,
   playersign;
 
 window.onload = () => {
   for (var i = 0; i < cell.length; i++) {
     cell[i].setAttribute("onclick", "clickedBox(this)");
+  }
+
+  selectHuman.onclick = () => {
+    opponent="human";
+    selectOpponentscreen.classList.add("hide");
+    selectplayer.classList.remove("hide")
+    
+  }
+  selectAi.onclick = () => {
+    opponent="AI";
+    selectOpponentscreen.classList.add("hide");
+    selectplayer.classList.remove("hide")
+    
   }
   selectXplayer.onclick = () => {
     selectplayer.classList.add("hide");
@@ -29,6 +46,7 @@ window.onload = () => {
     playersx.setAttribute("class", "turnx inactive ");
   };
 };
+
 
 function clickedBox(element) {
   if (playersx.classList.contains("active")) {
@@ -47,11 +65,12 @@ function clickedBox(element) {
   }
   element.style.pointerEvents = "none";
   findWinner();
-
+if(opponent=="AI"){
   let delay = (Math.random() * 1000 + 200).toFixed();
   setTimeout(() => {
     bot(runBot);
-  }, delay);
+  }, delay);}
+ 
 }
 
 function bot() {
@@ -90,6 +109,7 @@ function check(b1, b2, b3, sign) {
   if (
     getid(b1) != null &&
     getid(b2) != null &&
+    getid(b3) != null &&
     getid(b1) == sign &&
     getid(b2) == sign &&
     getid(b3) == sign
@@ -118,7 +138,7 @@ function findWinner() {
       wintext.innerHTML = `Player-${playersign} Won...`;
     }, 500);
   }
-  if (
+  else if (
     getid(1) != "" &&
     getid(2) != "" &&
     getid(3) != "" &&
@@ -128,7 +148,10 @@ function findWinner() {
     getid(7) != "" &&
     getid(8) != "" &&
     getid(9) != ""
+
   ) {
+
+    
     setTimeout(() => {
       playerboard.classList.remove("show");
       winner.setAttribute("class", "result show");

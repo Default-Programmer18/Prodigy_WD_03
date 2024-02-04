@@ -36,6 +36,16 @@ body {
   opacity: 1;
   scale: 1.05;
 }
+
+.selectOpponent.hide
+{
+  display: none;
+}
+.selectOpponent
+{
+  display: block;
+}
+
 .selectplayer {
   background-color: rgba(229, 152, 246, 0.5);
   border: 15px;
